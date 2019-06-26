@@ -41,7 +41,7 @@ def get_commentators_rate_posts(comments):
     return dict(commentators_rate.most_common())
 
 
-def analyze_instagram():
+def get_instagram_core_users():
     bot = make_bot(LOGIN, PASSWORD)
     timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = bot.get_total_user_medias(ACCOUNT_NAME)
@@ -58,7 +58,7 @@ def analyze_instagram():
 
 
 def main():
-    print(analyze_instagram())
+    print(get_instagram_core_users())
 
 
 if __name__ == '__main__':
