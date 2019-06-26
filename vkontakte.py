@@ -21,12 +21,15 @@ PAYLOADS = {
 
 
 def request_pages(url, payloads, records_per_page=100, page_limit=0):
-    payloads['count'] = records_per_page
-    payloads['offset'] = 0
+    params = {
+        **payloads,
+        'count': records_per_page,
+        'offset': 0,
+    }
     response_items = []
     page = 0
     while page < page_limit or not page_limit:
-        response = requests.get(url, params=payloads)
+        response = requests.get(url, params=params)
         response.raise_for_status()
         page_data = response.json()
         if page_data.get('error'):
@@ -35,18 +38,20 @@ def request_pages(url, payloads, records_per_page=100, page_limit=0):
         if not page_data['response']['items']:
             break
         response_items.extend(page_data['response']['items'])
-        payloads['offset'] += records_per_page
+        params['offset'] += records_per_page
         page += 1
     return response_items
 
 
 def get_group_id(group_name):
     method_url = f'{VK_API_URL}/groups.getById'
-    params = PAYLOADS
-    params['group_ids'] = group_name
+    params = {
+        **PAYLOADS,
+        'group_ids': group_name,
+    }
     response = requests.get(method_url, params=params)
     response.raise_for_status()
-    if response.json()['error']:
+    if response.json().get('error'):
         raise ValueError(response.json()['error']['error_msg'])
     return response.json()['response'][0]['id']
 
@@ -58,9 +63,11 @@ def get_posts(records_per_page=100, page_limit=0):
 
 def get_post_comments(group_id, post_id, records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/wall.getComments'
-    params = PAYLOADS
-    params['owner_id'] = -group_id
-    params['post_id'] = post_id
+    params = {
+        **PAYLOADS,
+        'owner_id': -group_id,
+        'post_id': post_id,
+    }
     return request_pages(method_url, params, records_per_page, page_limit)
 
 
@@ -70,10 +77,12 @@ def get_commentators(comments):
 
 def get_likers(group_id, post_id, records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/likes.getList'
-    params = PAYLOADS
-    params['type'] = 'post'
-    params['owner_id'] = -group_id
-    params['item_id'] = post_id
+    params = {
+        **PAYLOADS,
+        'type': 'post',
+        'owner_id': -group_id,
+        'item_id': post_id,
+    }
     return request_pages(method_url, params, records_per_page, page_limit)
 
 

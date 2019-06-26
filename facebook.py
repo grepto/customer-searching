@@ -42,8 +42,10 @@ def get_posts(group_id):
 
 def get_comments(post_id):
     url = f'{FB_URL}/{post_id}/comments'
-    params = PAYLOADS
-    params['fields'] = 'from,created_time'
+    params = {
+        **PAYLOADS,
+        'fields': 'from,created_time',
+    }
     response = requests.get(url, params=params)
     response.raise_for_status()
     comments = response.json()['data']
@@ -56,8 +58,10 @@ def get_comments(post_id):
 
 def get_reactions(post_id):
     url = f'{FB_URL}/{post_id}/reactions'
-    params = PAYLOADS
-    params['fields'] = 'id,type'
+    params = {
+        **PAYLOADS,
+        'fields': 'id,type',
+    }
     response = requests.get(url, params=params)
     response.raise_for_status()
     reactions = response.json()['data']
