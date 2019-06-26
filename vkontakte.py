@@ -86,7 +86,7 @@ def get_likers(group_id, post_id, records_per_page=100, page_limit=0):
     return request_pages(method_url, params, records_per_page, page_limit)
 
 
-def analyze_vkontakte():
+def get_vk_core_users():
     group_id = get_group_id(VK_GROUP_DOMAIN)
     timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = get_posts()
@@ -103,7 +103,7 @@ def analyze_vkontakte():
 
 
 def main():
-    print(analyze_vkontakte())
+    print(get_vk_core_users())
 
 
 if __name__ == '__main__':

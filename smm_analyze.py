@@ -1,7 +1,7 @@
 import argparse
 
 from facebook import analyze_facebook
-from vkontakte import analyze_vkontakte
+from vkontakte import get_vk_core_users
 from instagram import analyze_instagram
 
 parser = argparse.ArgumentParser(
@@ -14,7 +14,7 @@ if args.network == 'instagram':
     for rate_type, users in analyze_instagram().items():
         print(rate_type, users, sep=' ', end='\n\n')
 elif args.network == 'vk':
-    print(analyze_vkontakte())
+    print(get_vk_core_users())
 elif args.network == 'facebook':
     for rate_type, users in analyze_facebook().items():
         print(rate_type, users, sep=' ', end='\n\n')
