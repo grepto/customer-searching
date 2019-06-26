@@ -45,6 +45,9 @@ def get_group_id(group_name):
     params = payloads
     params['group_ids'] = group_name
     response = requests.get(method_url, params=params)
+    response.raise_for_status()
+    if response.json()['error']:
+        raise ValueError(response.json()['error']['error_msg'])
     return response.json()['response'][0]['id']
 
 
