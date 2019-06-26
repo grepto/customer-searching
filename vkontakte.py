@@ -1,9 +1,10 @@
 import os
 import time
+from datetime import datetime
 
 import requests
 
-from utils import get_filtered_list, get_timedelta
+from utils import get_filtered_list
 
 VK_TOKEN = os.getenv('VK_TOKEN')
 VK_GROUP_DOMAIN = os.getenv('VK_GROUP_DOMAIN')
@@ -75,7 +76,7 @@ def get_likers(group_id, post_id, records_per_page=100, page_limit=0):
 
 def analyze_vkontakte():
     group_id = get_group_id(VK_GROUP_DOMAIN)
-    timedelta = get_timedelta(DATE_LIMIT)
+    timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = get_posts()
     commentators = []
     likers = []

@@ -1,9 +1,10 @@
 import os
 import collections
+from datetime import datetime
 
 from instabot import Bot
 
-from utils import get_filtered_list, get_timedelta
+from utils import get_filtered_list
 
 
 LOGIN = os.getenv('INSTAGRAM_LOGIN')
@@ -43,7 +44,7 @@ def get_commentators_rate_posts(comments):
 
 def analyze_instagram():
     bot = make_bot(LOGIN, PASSWORD)
-    timedelta = get_timedelta(DATE_LIMIT)
+    timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = bot.get_total_user_medias(ACCOUNT_NAME)
     comments = []
     for post in posts[:2]:

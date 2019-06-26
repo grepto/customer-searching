@@ -4,7 +4,7 @@ import os
 
 import requests
 
-from utils import get_filtered_list, get_timedelta
+from utils import get_filtered_list
 
 
 FB_URL = 'https://graph.facebook.com'
@@ -81,7 +81,7 @@ def count_reactions(grouped_reactions):
 def analyze_facebook():
     user_id = get_user_id()
     group_id = get_group_id(user_id)
-    timedelta = get_timedelta(DATE_LIMIT)
+    timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = get_posts(group_id)
 
     reactions = []
