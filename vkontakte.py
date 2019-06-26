@@ -20,7 +20,7 @@ payloads = {
 }
 
 
-def request_pagination(url, payloads, records_per_page=100, page_limit=0):
+def request_pages(url, payloads, records_per_page=100, page_limit=0):
     payloads['count'] = records_per_page
     payloads['offset'] = 0
     response_items = []
@@ -50,7 +50,7 @@ def get_group_id(group_name):
 
 def get_posts(records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/wall.get'
-    return request_pagination(method_url, payloads, records_per_page, page_limit)
+    return request_pages(method_url, payloads, records_per_page, page_limit)
 
 
 def get_post_comments(group_id, post_id, records_per_page=100, page_limit=0):
@@ -58,7 +58,7 @@ def get_post_comments(group_id, post_id, records_per_page=100, page_limit=0):
     params = payloads
     params['owner_id'] = -group_id
     params['post_id'] = post_id
-    return request_pagination(method_url, params, records_per_page, page_limit)
+    return request_pages(method_url, params, records_per_page, page_limit)
 
 
 def get_commentators(comments):
@@ -71,7 +71,7 @@ def get_likers(group_id, post_id, records_per_page=100, page_limit=0):
     params['type'] = 'post'
     params['owner_id'] = -group_id
     params['item_id'] = post_id
-    return request_pagination(method_url, params, records_per_page, page_limit)
+    return request_pages(method_url, params, records_per_page, page_limit)
 
 
 def analyze_vkontakte():
