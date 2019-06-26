@@ -1,6 +1,6 @@
 import os
 import collections
-from datetime import datetime
+import datetime
 
 from instabot import Bot
 

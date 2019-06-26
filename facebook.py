@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from collections import defaultdict, Counter
 import os
 
@@ -49,7 +49,7 @@ def get_comments(post_id):
     comments = response.json()['data']
     return [
         dict(author_id=comment['from']['id'],
-             created_time=datetime.strptime(comment['created_time'], '%Y-%m-%dT%H:%M:%S+0000').timestamp(),
+             created_time=datetime.datetime.strptime(comment['created_time'], '%Y-%m-%dT%H:%M:%S+0000').timestamp(),
              )
         for comment in comments]
 

@@ -1,6 +1,6 @@
 import os
+import datetime
 import time
-from datetime import datetime
 
 import requests
 
