@@ -11,14 +11,14 @@ FB_URL = 'https://graph.facebook.com'
 FB_TOKEN = os.getenv('FB_TOKEN')
 DATE_LIMIT = int(os.getenv('FB_DATE_LIMIT'))
 
-payloads = {
+PAYLOADS = {
     'access_token': FB_TOKEN
 }
 
 
 def get_user_id():
     url = f'{FB_URL}/me'
-    params = payloads
+    params = PAYLOADS
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()['id']
@@ -26,7 +26,7 @@ def get_user_id():
 
 def get_group_id(user_id):
     url = f'{FB_URL}/{user_id}/groups'
-    params = payloads
+    params = PAYLOADS
     response = requests.get(url, params=params)
     response.raise_for_status()
     return response.json()['data'][0]['id']
@@ -34,7 +34,7 @@ def get_group_id(user_id):
 
 def get_posts(group_id):
     url = f'{FB_URL}/{group_id}/feed'
-    params = payloads
+    params = PAYLOADS
     response = requests.get(url, params=params)
     response.raise_for_status()
     return [post['id'] for post in response.json()['data']]
@@ -42,7 +42,7 @@ def get_posts(group_id):
 
 def get_comments(post_id):
     url = f'{FB_URL}/{post_id}/comments'
-    params = payloads
+    params = PAYLOADS
     params['fields'] = 'from,created_time'
     response = requests.get(url, params=params)
     response.raise_for_status()
@@ -56,7 +56,7 @@ def get_comments(post_id):
 
 def get_reactions(post_id):
     url = f'{FB_URL}/{post_id}/reactions'
-    params = payloads
+    params = PAYLOADS
     params['fields'] = 'id,type'
     response = requests.get(url, params=params)
     response.raise_for_status()

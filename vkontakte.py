@@ -13,7 +13,7 @@ DATE_LIMIT = int(os.getenv('VK_DATE_LIMIT'))
 VK_API_VERSION = 5.95
 VK_API_URL = 'https://api.vk.com/method'
 
-payloads = {
+PAYLOADS = {
     'access_token': VK_TOKEN,
     'v': VK_API_VERSION,
     'domain': VK_GROUP_DOMAIN,
@@ -42,7 +42,7 @@ def request_pages(url, payloads, records_per_page=100, page_limit=0):
 
 def get_group_id(group_name):
     method_url = f'{VK_API_URL}/groups.getById'
-    params = payloads
+    params = PAYLOADS
     params['group_ids'] = group_name
     response = requests.get(method_url, params=params)
     response.raise_for_status()
@@ -53,12 +53,12 @@ def get_group_id(group_name):
 
 def get_posts(records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/wall.get'
-    return request_pages(method_url, payloads, records_per_page, page_limit)
+    return request_pages(method_url, PAYLOADS, records_per_page, page_limit)
 
 
 def get_post_comments(group_id, post_id, records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/wall.getComments'
-    params = payloads
+    params = PAYLOADS
     params['owner_id'] = -group_id
     params['post_id'] = post_id
     return request_pages(method_url, params, records_per_page, page_limit)
@@ -70,7 +70,7 @@ def get_commentators(comments):
 
 def get_likers(group_id, post_id, records_per_page=100, page_limit=0):
     method_url = f'{VK_API_URL}/likes.getList'
-    params = payloads
+    params = PAYLOADS
     params['type'] = 'post'
     params['owner_id'] = -group_id
     params['item_id'] = post_id
