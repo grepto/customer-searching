@@ -6,7 +6,6 @@ from instabot import Bot
 
 from utils import get_filtered_list
 
-
 LOGIN = os.getenv('INSTAGRAM_LOGIN')
 PASSWORD = os.getenv('INSTAGRAM_PASSWORD')
 ACCOUNT_NAME = os.getenv('INSTAGRAM_ACCOUNT_NAME')

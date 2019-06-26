@@ -6,7 +6,6 @@ import requests
 
 from utils import get_filtered_list
 
-
 FB_URL = 'https://graph.facebook.com'
 FB_TOKEN = os.getenv('FB_TOKEN')
 DATE_LIMIT = int(os.getenv('FB_DATE_LIMIT'))
