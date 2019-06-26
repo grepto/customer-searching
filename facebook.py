@@ -81,7 +81,7 @@ def count_reactions(grouped_reactions):
     return calculated_reactions
 
 
-def analyze_facebook():
+def get_facebook_core_users():
     user_id = get_user_id()
     group_id = get_group_id(user_id)
     timedelta = datetime.timedelta(days=DATE_LIMIT)
@@ -103,7 +103,7 @@ def analyze_facebook():
 
 
 def main():
-    print(analyze_facebook())
+    print(get_facebook_core_users())
 
 
 if __name__ == '__main__':
