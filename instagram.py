@@ -52,13 +52,14 @@ def analyze_instagram():
     filtered_comments = get_filtered_list(comments, 'created_at', timedelta)
     commentators_rate_comments = get_commentators_rate_comments(filtered_comments)
     commentators_rate_posts = get_commentators_rate_posts(filtered_comments)
-    print('Comments Top:', commentators_rate_comments, sep=' ')
-    print()
-    print('Posts Top:', commentators_rate_posts, sep=' ')
+    return {
+        'Comments Top': commentators_rate_comments,
+        'Posts Top:': commentators_rate_posts,
+    }
 
 
 def main():
-    return analyze_instagram()
+    print(analyze_instagram())
 
 
 if __name__ == '__main__':

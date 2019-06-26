@@ -99,11 +99,11 @@ def analyze_vkontakte():
         commentators.extend(get_commentators(filtered_comments))
         likers.extend(get_likers(group_id, post_id))
 
-    print(set(commentators) & set(likers))
+    return set(commentators) & set(likers)
 
 
 def main():
-    analyze_vkontakte()
+    print(analyze_vkontakte())
 
 
 if __name__ == '__main__':

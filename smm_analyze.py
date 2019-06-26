@@ -11,8 +11,10 @@ parser.add_argument('network', help='Название соцсети', choices=[
 args = parser.parse_args()
 
 if args.network == 'instagram':
-    analyze_instagram()
+    for rate_type, users in analyze_instagram().items():
+        print(rate_type, users, sep=' ', end='\n\n')
 elif args.network == 'vk':
-    analyze_vkontakte()
+    print(analyze_vkontakte())
 elif args.network == 'facebook':
-    analyze_facebook()
+    for rate_type, users in analyze_facebook().items():
+        print(rate_type, users, sep=' ', end='\n\n')

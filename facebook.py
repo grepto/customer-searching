@@ -97,13 +97,14 @@ def analyze_facebook():
         reactions.extend(get_reactions(post))
     grouped_reactions = group_reactions_by_author(reactions)
     counted_reactions = count_reactions(grouped_reactions)
-    print('Commentators: ', set(commentators), sep=' ')
-    print()
-    print('Reactions: ', counted_reactions, sep=' ')
+    return {
+        'Commentators': set(commentators),
+        'Reactions': counted_reactions,
+    }
 
 
 def main():
-    analyze_facebook()
+    print(analyze_facebook())
 
 
 if __name__ == '__main__':
