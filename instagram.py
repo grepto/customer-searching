@@ -26,6 +26,16 @@ def get_comments(bot, post):
     return comments
 
 
+def get_posts_filtered_comments(posts_count=None):
+    bot = make_bot(LOGIN, PASSWORD)
+    posts = bot.get_total_user_medias(ACCOUNT_NAME)
+    comments = []
+    for post in posts[0:posts_count]:
+        comments.extend(get_comments(bot, post))
+    timedelta = datetime.timedelta(days=DATE_LIMIT)
+    return get_filtered_list(comments, 'created_at', timedelta)
+
+
 def get_commentators_rate_comments(comments):
     commentators_rate = collections.Counter()
     for comment in comments:
@@ -41,24 +51,12 @@ def get_commentators_rate_posts(comments):
     return dict(commentators_rate.most_common())
 
 
-def get_instagram_core_users(posts_count=None):
-    bot = make_bot(LOGIN, PASSWORD)
-    timedelta = datetime.timedelta(days=DATE_LIMIT)
-    posts = bot.get_total_user_medias(ACCOUNT_NAME)
-    comments = []
-    for post in posts[0:posts_count]:
-        comments.extend(get_comments(bot, post))
-    filtered_comments = get_filtered_list(comments, 'created_at', timedelta)
-    commentators_rate_comments = get_commentators_rate_comments(filtered_comments)
-    commentators_rate_posts = get_commentators_rate_posts(filtered_comments)
-    return {
-        'Comments Top': commentators_rate_comments,
-        'Posts Top:': commentators_rate_posts,
-    }
-
-
 def main():
-    print(get_instagram_core_users())
+    comments = get_posts_filtered_comments(2)
+    top_comments = get_commentators_rate_comments(comments)
+    top_posts = get_commentators_rate_posts(comments)
+    print(top_comments)
+    print(top_posts)
 
 
 if __name__ == '__main__':
