@@ -41,12 +41,12 @@ def get_commentators_rate_posts(comments):
     return dict(commentators_rate.most_common())
 
 
-def get_instagram_core_users():
+def get_instagram_core_users(posts_count=None):
     bot = make_bot(LOGIN, PASSWORD)
     timedelta = datetime.timedelta(days=DATE_LIMIT)
     posts = bot.get_total_user_medias(ACCOUNT_NAME)
     comments = []
-    for post in posts[:2]:
+    for post in posts[0:posts_count]:
         comments.extend(get_comments(bot, post))
     filtered_comments = get_filtered_list(comments, 'created_at', timedelta)
     commentators_rate_comments = get_commentators_rate_comments(filtered_comments)
