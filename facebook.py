@@ -94,34 +94,17 @@ def count_reactions(grouped_reactions):
 
 
 def get_counted_reactions(post_ids):
-    reactions = [get_reactions(post_id) for post_id in post_ids]
+    reactions = [reaction for post_id in post_ids for reaction in get_reactions(post_id)]
     grouped_reactions = group_reactions_by_author(reactions)
     return count_reactions(grouped_reactions)
 
 
-# def get_facebook_core_users():
-    # timedelta = datetime.timedelta(days=DATE_LIMIT)
-    # posts = get_post_ids()
-    #
-    # reactions = []
-    # commentators = []
-    # for post in posts:
-    #     comments = get_comments(post)
-    #     filtered_comments = get_filtered_list(comments, 'created_time', timedelta)
-    #     commentators.extend([comment['author_id'] for comment in filtered_comments])
-    # reactions.extend(get_reactions(post))
-
-
-# grouped_reactions = group_reactions_by_author(reactions)
-# counted_reactions = count_reactions(grouped_reactions)
-# return {
-#     'Commentators': set(commentators),
-#     'Reactions': counted_reactions,
-# }
-
-
 def main():
-    print(get_facebook_core_users())
+    post_ids = get_post_ids()
+    commentators = get_commentators(post_ids)
+    counted_reactions = get_counted_reactions(post_ids)
+    print('Commentators:', commentators, sep=' ')
+    print('Reactions:', counted_reactions, sep=' ')
 
 
 if __name__ == '__main__':

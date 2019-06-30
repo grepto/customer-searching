@@ -1,6 +1,6 @@
 import argparse
 
-from facebook import get_facebook_core_users
+from facebook import get_post_ids, get_commentators, get_counted_reactions
 from vkontakte import get_vk_core_users
 from instagram import get_posts_filtered_comments, get_commentators_rate_comments, get_commentators_rate_posts
 
@@ -20,5 +20,8 @@ if args.network == 'instagram':
 elif args.network == 'vk':
     print(get_vk_core_users())
 elif args.network == 'facebook':
-    for rate_type, users in get_facebook_core_users().items():
-        print(rate_type, users, sep=' ', end='\n\n')
+    post_ids = get_post_ids()
+    commentators = get_commentators(post_ids)
+    counted_reactions = get_counted_reactions(post_ids)
+    print('Commentators:', commentators, sep=' ')
+    print('Reactions:', counted_reactions, sep=' ')
