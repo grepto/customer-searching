@@ -59,11 +59,11 @@ def get_comments(post_id):
 
 def get_commentators(post_ids):
     timedelta = datetime.timedelta(days=DATE_LIMIT)
-    commentators = []
-    for id in post_ids:
-        comments = get_comments(id)
+    commentators = set()
+    for post_id in post_ids:
+        comments = get_comments(post_id)
         filtered_comments = get_filtered_list(comments, 'created_time', timedelta)
-        commentators.extend([comment['author_id'] for comment in filtered_comments])
+        commentators.update([comment['author_id'] for comment in filtered_comments])
     return commentators
 
 
@@ -99,23 +99,25 @@ def get_counted_reactions(post_ids):
     return count_reactions(grouped_reactions)
 
 
-def get_facebook_core_users():
-    timedelta = datetime.timedelta(days=DATE_LIMIT)
-    posts = get_post_ids()
-
-    reactions = []
+# def get_facebook_core_users():
+    # timedelta = datetime.timedelta(days=DATE_LIMIT)
+    # posts = get_post_ids()
+    #
+    # reactions = []
     # commentators = []
     # for post in posts:
     #     comments = get_comments(post)
     #     filtered_comments = get_filtered_list(comments, 'created_time', timedelta)
     #     commentators.extend([comment['author_id'] for comment in filtered_comments])
-        reactions.extend(get_reactions(post))
-    grouped_reactions = group_reactions_by_author(reactions)
-    counted_reactions = count_reactions(grouped_reactions)
-    return {
-        'Commentators': set(commentators),
-        'Reactions': counted_reactions,
-    }
+    # reactions.extend(get_reactions(post))
+
+
+# grouped_reactions = group_reactions_by_author(reactions)
+# counted_reactions = count_reactions(grouped_reactions)
+# return {
+#     'Commentators': set(commentators),
+#     'Reactions': counted_reactions,
+# }
 
 
 def main():
