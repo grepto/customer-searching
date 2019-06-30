@@ -31,7 +31,7 @@ def get_group_id(user_id):
     return response.json()['data'][0]['id']
 
 
-def get_posts(group_id):
+def get_posts_id(group_id):
     url = f'{FB_URL}/{group_id}/feed'
     params = PAYLOADS
     response = requests.get(url, params=params)
@@ -85,7 +85,7 @@ def get_facebook_core_users():
     user_id = get_user_id()
     group_id = get_group_id(user_id)
     timedelta = datetime.timedelta(days=DATE_LIMIT)
-    posts = get_posts(group_id)
+    posts = get_posts_id(group_id)
 
     reactions = []
     commentators = []
