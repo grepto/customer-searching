@@ -37,17 +37,13 @@ def get_posts_filtered_comments(posts_count=None):
 
 
 def get_commentators_rate_comments(comments):
-    commentators_rate = collections.Counter()
-    for comment in comments:
-        commentators_rate[comment['user_id']] += 1
+    commentators_rate = collections.Counter([comment['user_id'] for comment in comments])
     return dict(commentators_rate.most_common())
 
 
 def get_commentators_rate_posts(comments):
     commentators = {(comment['user_id'], comment['post_id']) for comment in comments}
-    commentators_rate = collections.Counter()
-    for user_id, _ in commentators:
-        commentators_rate[user_id] += 1
+    commentators_rate = collections.Counter([user_id for user_id,  post_id in commentators])
     return dict(commentators_rate.most_common())
 
 
